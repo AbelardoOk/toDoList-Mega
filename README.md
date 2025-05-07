@@ -19,20 +19,20 @@ CREATE TABLE usuarios (
 
 ### Tabela de Tarefas
 ```sql
+CREATE TYPE prioridade_enum AS ENUM ('alta', 'media', 'baixa')
+
 CREATE TABLE tarefas (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
     data_hora TIMESTAMP NOT NULL,
-    prioridade VARCHAR(10) NOT NULL DEFAULT 'media' CHECK (prioridade IN ('alta', 'media', 'baixa')),
+    prioridade prioridade_enum NOT NULL DEFAULT 'media',
     concluida BOOLEAN NOT NULL DEFAULT FALSE,
     data_conclusao TIMESTAMP,
     usuario_id INT REFERENCES usuarios(id)
 );
 
--- Índices para melhorar desempenho em ordenações
-CREATE INDEX idx_tarefas_data_hora ON tarefas(data_hora);
-CREATE INDEX idx_tarefas_prioridade ON tarefas(prioridade);
+CREATE INDEX idx_tarefa_prioridade ON tarefas(prioridade)
 ```
 
 ## Configuração do Ambiente
