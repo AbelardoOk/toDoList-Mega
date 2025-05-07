@@ -34,17 +34,44 @@ VALUES ($1, $2, $3, $4, $5) RETURNING *`,
 );
 
 route.get("/", async (req: Request, res: Response) => {
-  const { usuario_id } = req.body;
+  const { usuario_id, listagem } = req.body;
+  const tipoListagem = listagem ?? "data_hora";
+
+  if (!usuario_id) {
+    res.status(400).send({ erro: "Usuário não informado" });
+  }
 
   try {
-    const listarTarefas = await pool.query(
-      `SELECT * FROM tarefas WHERE usuario_id = $1
-      ORDER BY data_hora asc`,
-      [usuario_id]
-    );
+    const listarTarefas = async () => {
+      switch (tipoListagem) {
+        case "prioridade":
+          return await pool.query(
+            `SELECT * FROM tarefas WHERE usuario_id = $1
+            ORDER BY prioridade asc`,
+            [usuario_id]
+          );
+          break;
+        case "data_hora":
+          return await pool.query(
+            `SELECT * FROM tarefas WHERE usuario_id = $1
+            ORDER BY data_hora asc`,
+            [usuario_id]
+          );
+          break;
+        case "concluida":
+          return await pool.query(
+            `SELECT * FROM tarefas WHERE usuario_id = $1
+            ORDER BY concluida asc`,
+            [usuario_id]
+          );
+          break;
+      }
+    };
+
+    const resultado = await listarTarefas();
 
     res.status(200).send({
-      tarefas: listarTarefas.rows,
+      tarefas: resultado?.rows,
     });
   } catch (error) {
     console.log(error);
