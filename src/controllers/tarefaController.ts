@@ -2,10 +2,6 @@ import { Request, Response } from "express";
 import { tarefasService } from "../services/tarefasService";
 import { CreateTarefaDTO, listTarefas } from "../interface/tarefaInterface";
 
-import dotenv from "dotenv";
-
-dotenv.config();
-
 export const tarefasController = {
   //Post /Tarefas
   async criar(req: Request<{}, {}, CreateTarefaDTO>, res: Response) {
