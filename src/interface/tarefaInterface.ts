@@ -6,12 +6,21 @@ export interface CreateTarefaDTO {
   prioridade: string;
 }
 
-export interface listTarefas extends CreateTarefaDTO {
+export interface listTarefas {
   usuario_id: number;
   tipoListagem: "prioridade" | "data" | "concluida";
 }
 
-export interface Tarefa extends CreateTarefaDTO {
+export interface Tarefa {
   id: number;
   concluida: boolean;
+}
+
+export interface updateTarefa {
+  usuario_id: number;
+  id: number;
+  titulo?: string;
+  descricao?: string;
+  data_hora?: Date;
+  prioridade?: number;
 }

@@ -9,4 +9,7 @@ route.post("/", tarefasController.criar);
 // Listar Tarefas
 route.get("/", tarefasController.listagem);
 
+// Atualizar Tarefas
+route.put("/", tarefasController.update);
+
 export default route;

@@ -3,6 +3,7 @@ import {
   CreateTarefaDTO,
   Tarefa,
   listTarefas,
+  updateTarefa,
 } from "../interface/tarefaInterface";
 
 export const tarefasService = {
@@ -35,6 +36,29 @@ export const tarefasService = {
       `SELECT * FROM tarefas WHERE usuario_id = $1 ORDER BY $2 asc`,
       [usuario_id, orderBy]
     );
+    return rows;
+  },
+
+  async atualizarTarefa(data: updateTarefa): Promise<Tarefa[]> {
+    const { usuario_id, id, ...dados } = data;
+
+    const campos = Object.entries(dados)
+      .filter(([_, valor]) => valor !== undefined && valor !== "")
+      .map(([chave, _], index) => `${chave} = $${index + 1}`);
+
+    const valores = Object.values(dados).filter(
+      (valor) => valor !== undefined && valor !== ""
+    );
+
+    if (campos.length === 0) {
+      throw new Error("Não foram enviados dados para atualização!");
+    }
+
+    const query = `UPDATE tarefas SET ${campos.join(", ")} WHERE id = $${
+      valores.length + 1
+    } AND usuario_id = $${valores.length + 2}`;
+    const parametros = [...valores, id, usuario_id];
+    const { rows } = await pool.query(query, parametros);
     return rows;
   },
 };
