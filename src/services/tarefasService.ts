@@ -2,6 +2,7 @@ import { pool } from "../config/db";
 import {
   CreateTarefaDTO,
   Tarefa,
+  deleteTarefa,
   listTarefas,
   updateTarefa,
 } from "../interface/tarefaInterface";
@@ -59,6 +60,16 @@ export const tarefasService = {
     } AND usuario_id = $${valores.length + 2}`;
     const parametros = [...valores, id, usuario_id];
     const { rows } = await pool.query(query, parametros);
+    return rows;
+  },
+
+  async deletarTarefa(data: deleteTarefa): Promise<Tarefa[]> {
+    const { usuario_id, id } = data;
+
+    const { rows } = await pool.query(
+      `DELETE FROM tarefas WHERE usuario_id = $1 AND id = $2`,
+      [usuario_id, id]
+    );
     return rows;
   },
 };

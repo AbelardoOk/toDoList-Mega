@@ -12,4 +12,7 @@ route.get("/", tarefasController.listagem);
 // Atualizar Tarefas
 route.put("/", tarefasController.update);
 
+// Deletar UMA Tarefa
+route.delete("/", tarefasController.deleteOne);
+
 export default route;

@@ -24,3 +24,8 @@ export interface updateTarefa {
   data_hora?: Date;
   prioridade?: number;
 }
+
+export interface deleteTarefa {
+  usuario_id: number;
+  id: number;
+}
