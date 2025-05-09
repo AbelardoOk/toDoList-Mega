@@ -76,4 +76,21 @@ export const tarefasController = {
       });
     }
   },
+
+  // Deletar TODAS tarefas concluidas
+  async deleteAll(req: Request, res: Response) {
+    const { id } = req.body;
+    if (!id) {
+      res.status(400).json({ error: "Id do Usuário não informada" });
+    }
+    try {
+      await tarefasService.deletarTarefa(req.body);
+      res.status(200).json({ message: "Tarefas Concluídas Limpadas!" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error: `Erro ao listar tarefas: ${error}`,
+      });
+    }
+  },
 };

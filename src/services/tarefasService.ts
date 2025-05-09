@@ -72,4 +72,13 @@ export const tarefasService = {
     );
     return rows;
   },
+
+  async deletarTodos(id: number): Promise<Tarefa[]> {
+    await pool.query(
+      `DELETE FROM tarefas WHERE usuario_id = $1 AND concluido = true`
+    ),
+      [id];
+
+    return [];
+  },
 };

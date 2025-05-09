@@ -15,4 +15,6 @@ route.put("/", tarefasController.update);
 // Deletar UMA Tarefa
 route.delete("/", tarefasController.deleteOne);
 
+// Deletar TODAS tarefas Concluidas
+route.delete("/", tarefasController.deleteAll);
 export default route;
