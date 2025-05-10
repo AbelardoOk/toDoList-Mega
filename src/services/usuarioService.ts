@@ -18,7 +18,7 @@ export const usuarioService = {
     const hashSenha = await bcrypt.hash(senha, saltRounds);
 
     const { rows } = await pool.query(
-      `INSERT INTO usuarios (nome, senha, email) VALUES ($1, $2, $3) RETURNING *`,
+      `INSERT INTO usuarios (nome, senha, email) VALUES ($1, $2, $3) RETURNING id, nome, senha, email`,
       [nome, hashSenha, email]
     );
     const user = rows[0];
@@ -39,13 +39,13 @@ export const usuarioService = {
     }
 
     const hashSenha = await pool.query(
-      `SELECT senha FROM usuarios WHERE nome = $1`,
-      [senha]
+      `SELECT senha FROM usuarios WHERE nome = $1;`,
+      [nome]
     );
-    const isMatch = await bcrypt.compare(senha, hashSenha.rows[0]);
+    const isMatch = await bcrypt.compare(senha, hashSenha.rows[0].senha);
     if (isMatch) {
       const { rows } = await pool.query(
-        `SELECT * FROM usuarios WHERE nome = $1`,
+        `SELECT id, nome, senha, email FROM usuarios WHERE nome = $1`,
         [nome]
       );
       const user = rows[0];
