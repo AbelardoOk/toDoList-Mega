@@ -18,7 +18,7 @@ export const tarefasController = {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: `Erro ao buscar usuários: ${error}` });
+      res.status(500).json({ error: `Erro ao buscar usuários: ${error}` });
     }
   },
 
