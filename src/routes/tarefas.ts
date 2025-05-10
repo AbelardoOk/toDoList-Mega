@@ -1,7 +1,10 @@
 import express from "express";
 import { tarefasController } from "../controllers/tarefaController";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const route = express.Router();
+
+route.use(authMiddleware);
 
 // Criar Tarefa
 route.post("/", tarefasController.criar);
