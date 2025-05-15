@@ -42,6 +42,11 @@ export const usuarioService = {
       `SELECT senha FROM usuarios WHERE nome = $1;`,
       [nome]
     );
+
+    if (hashSenha.rows.length === 0) {
+      throw new Error("Usuário não encontrado!");
+    }
+
     const isMatch = await bcrypt.compare(senha, hashSenha.rows[0].senha);
     if (isMatch) {
       const { rows } = await pool.query(
