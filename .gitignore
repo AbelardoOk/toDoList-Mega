@@ -1,3 +1,2 @@
-.ENV
-./.env
+.env
 node_modules
