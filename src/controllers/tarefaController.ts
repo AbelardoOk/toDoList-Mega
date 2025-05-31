@@ -87,7 +87,7 @@ export const tarefasController = {
       res.status(400).json({ error: "Id do Usuário não informada" });
     }
     try {
-      await tarefasService.deletarTarefa(req.body);
+      await tarefasService.deletarTodos(req.body);
       res.status(200).json({ message: "Tarefas Concluídas Limpadas!" });
     } catch (error) {
       console.log(error);

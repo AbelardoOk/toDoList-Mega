@@ -252,6 +252,76 @@
           }
         }
       }
+    },
+    "/tarefas/concluir": {
+      "patch": {
+        "summary": "Concluir tarefa",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "usuario_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "usuario_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tarefa concluída com sucesso"
+          }
+        }
+      }
+    },
+    "/tarefas/all": {
+      "delete": {
+        "summary": "Deletar todas as tarefas do usuário",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "usuario_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Todas as tarefas do usuário foram deletadas com sucesso"
+          }
+        }
+      }
     }
   },
   "components": {

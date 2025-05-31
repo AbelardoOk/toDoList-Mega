@@ -30,5 +30,5 @@ route.patch("/concluir", async (req, res, next) => {
 route.delete("/", tarefasController.deleteOne);
 
 // Deletar TODAS tarefas Concluidas
-route.delete("/", tarefasController.deleteAll);
+route.delete("/all", tarefasController.deleteAll);
 export default route;
