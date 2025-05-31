@@ -1,3 +1,4 @@
+import { Query } from "pg";
 import { pool } from "../config/db";
 import {
   CreateTarefaDTO,
@@ -19,8 +20,8 @@ export const tarefasService = {
     return rows[0];
   },
 
-  async listarTarefas(data: listTarefas): Promise<Tarefa[]> {
-    const { usuario_id, tipoListagem } = data;
+  async listarTarefas(query: listTarefas): Promise<Tarefa[]> {
+    const { usuario_id, tipoListagem } = query;
 
     let orderBy: string;
     switch (tipoListagem) {
@@ -33,9 +34,10 @@ export const tarefasService = {
       default:
         orderBy = "data_hora";
     }
+
     const { rows } = await pool.query(
-      `SELECT * FROM tarefas WHERE usuario_id = $1 ORDER BY $2 asc`,
-      [usuario_id, orderBy]
+      `SELECT * FROM tarefas WHERE usuario_id = $1 ORDER BY ${orderBy} ASC`,
+      [usuario_id]
     );
     return rows;
   },

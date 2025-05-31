@@ -7,8 +7,8 @@ export interface CreateTarefaDTO {
 }
 
 export interface listTarefas {
-  usuario_id: number;
-  tipoListagem: "prioridade" | "data" | "concluida";
+  usuario_id: string;
+  tipoListagem?: "prioridade" | "concluida" | "data_hora";
 }
 
 export interface Tarefa {

@@ -23,13 +23,14 @@ export const tarefasController = {
   },
 
   // GET /Tarefas
-  async listagem(req: Request<{}, {}, listTarefas>, res: Response) {
-    const { usuario_id } = req.body;
+  async listagem(req: Request<{}, {}, {}, listTarefas>, res: Response) {
+    const { usuario_id } = req.query;
     if (!usuario_id) {
       res.status(400).json({ error: "Usuário não informado" });
     }
     try {
-      const tarefa = await tarefasService.listarTarefas(req.body);
+      const tarefa = await tarefasService.listarTarefas(req.query);
+      console.log(tarefa);
       res.status(200).json({ tarefa });
     } catch (error) {
       console.log(error);
