@@ -77,9 +77,9 @@ CREATE TABLE tarefas (
 4. **Configure as variáveis de ambiente:**
 	Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
     ```env
-    PORT=3000
-    DATABASE_URL=postgres://usuario:senha@localhost:5432/nome_do_banco
-    JWT_SECRET=sua_chave_secreta
+    PG_USER=seu usuario do postgres
+    PG_PASSWORD=sua senha
+    JWT_SECRET=senha do jwt
     ```
 
 5. **Execute as migrações do banco de dados:**
