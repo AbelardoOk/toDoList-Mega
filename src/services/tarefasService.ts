@@ -7,6 +7,7 @@ import {
   listTarefas,
   updateTarefa,
 } from "../interface/tarefaInterface";
+import tarefas from "../routes/tarefas";
 
 export const tarefasService = {
   async criarTarefa(data: CreateTarefaDTO): Promise<Tarefa> {
@@ -82,5 +83,31 @@ export const tarefasService = {
       [id];
 
     return [];
+  },
+
+  async concluirTarefa({
+    usuario_id,
+    id,
+  }: {
+    usuario_id: string;
+    id: string;
+  }): Promise<Tarefa> {
+    const { rows: tarefaAtual } = await pool.query(
+      `SELECT concluida FROM tarefas WHERE id = $1 AND usuario_id = $2`,
+      [id, usuario_id]
+    );
+    if (tarefaAtual.length === 0) {
+      throw new Error("Tarefa não encontrada ou usuário não autorizado.");
+    }
+
+    const concluidaAtual = tarefaAtual[0].concluida;
+
+    const novoStatus = !concluidaAtual;
+    const { rows } = await pool.query(
+      `UPDATE tarefas SET concluida = $1 WHERE id = $2 AND usuario_id = $3 RETURNING *`,
+      [novoStatus, id, usuario_id]
+    );
+
+    return rows[0];
   },
 };

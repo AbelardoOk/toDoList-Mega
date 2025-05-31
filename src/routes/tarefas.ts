@@ -15,6 +15,17 @@ route.get("/", tarefasController.listagem);
 // Atualizar Tarefas
 route.put("/", tarefasController.update);
 
+// Marcar tarefa como concluída
+route.patch("/concluir", async (req, res, next) => {
+  try {
+    const { usuario_id, id } = req.body;
+    const tarefa = await tarefasController.concluirTarefa({ usuario_id, id });
+    res.json(tarefa);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Deletar UMA Tarefa
 route.delete("/", tarefasController.deleteOne);
 

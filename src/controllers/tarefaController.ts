@@ -4,8 +4,10 @@ import {
   CreateTarefaDTO,
   deleteTarefa,
   listTarefas,
+  Tarefa,
   updateTarefa,
 } from "../interface/tarefaInterface";
+import { pool } from "../config/db";
 
 export const tarefasController = {
   //Post /Tarefas
@@ -93,5 +95,23 @@ export const tarefasController = {
         error: `Erro ao listar tarefas: ${error}`,
       });
     }
+  },
+  async concluirTarefa({
+    usuario_id,
+    id,
+  }: {
+    usuario_id: string;
+    id: string;
+  }): Promise<Tarefa> {
+    const { rows } = await pool.query(
+      `UPDATE tarefas SET concluida = true WHERE id = $1 AND usuario_id = $2 RETURNING *`,
+      [id, usuario_id]
+    );
+
+    if (rows.length === 0) {
+      throw new Error("Tarefa não encontrada ou usuário não autorizado.");
+    }
+
+    return rows[0];
   },
 };
