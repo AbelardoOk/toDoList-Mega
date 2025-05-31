@@ -13,6 +13,7 @@ Este projeto é um sistema completo de gerenciamento de tarefas com autenticaç�
 
 [MegaJr - Frontend](https://github.com/Joao-Gabriel-Salomao/MegaJr) <br>
 [MegaJr - Backend](https://github.com/AbelardoOk/toDoList-Mega)
+[Documentação Completa](https://docs.google.com/document/d/13334wMwtTlZCZsV0eSGxtsVFxKBCa5G7zJau6qISgv8/edit?usp=sharing)
 
 ---
 # 🛠️ Tecnologias Utilizadas
@@ -140,6 +141,3 @@ A documentação completa das rotas da API está disponível via Swagger em:
 - Vitor Alex Valenzuela - [@Vitor-Valenzuela](https://github.com/Vitor-Valenzuela)
 - Abelardo Palácios Ribeiro - [@AbelardoOk](https://github.com/AbelardoOk)
 - João Leonardo Macanhão - [@João-Macanhão]()
-
----
-
