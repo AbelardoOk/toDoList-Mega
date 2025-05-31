@@ -43,9 +43,6 @@ Crie um arquivo `.env` na raiz do projeto com as seguintes configurações:
 ```
 PG_USER=seu_usuario
 PG_PASSWORD=sua_senha
-PG_HOST=localhost
-PG_PORT=5432
-PG_DATABASE=nome_do_banco
 JWT_SECRET=sua_chave_secreta
 ```
 
